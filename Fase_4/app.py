@@ -134,5 +134,7 @@ with tab3:
     * **TUE** — (Time using electronic devices) Tempo diário usando dispositivos eletrônicos.
     * **CALC** — (Alcohol consumption) Consumo de bebida alcoólica.
     * **MTRANS** — (Transportation used / Mode of transport) Meio de transporte habitual.
-    * **Obesity** — (Target label / Nível de obesidade) Classe de peso corporal.
+    * **Obesity** — (Target label / Nível de obesidade) Classe de peso corporal. Valores: Insufficient_Weight (abaixo do peso), Normal_Weight (peso normal),
+Overweight_Level_I (sobrepeso I), Overweight_Level_II (sobrepeso II), Obesity_Type_I (obesidade I), Obesity_Type_II (obesidade II),
+Obesity_Type_III (obesidade III).
     """)
