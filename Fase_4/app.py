@@ -135,4 +135,4 @@ with tab3:
     * **CALC** — (Alcohol consumption) Consumo de bebida alcoólica. Valores: `no` (não bebe), `Sometimes` (às vezes), `Frequently` (frequentemente), `Always` (sempre).
     * **MTRANS** — (Transportation used / Mode of transport) Meio de transporte habitual. Valores: `Automobile` (carro), `Motorbike` (moto), `Bike` (bicicleta), `Public_Transportation` (transporte público), `Walking` (a pé).
     * **Obesity** — (Target label / Nível de obesidade) Classe de peso corporal. Valores: `Insufficient_Weight` (abaixo do peso), `Normal_Weight` (peso normal), `Overweight_Level_I` (sobrepeso I), `Overweight_Level_II` (sobrepeso II), `Obesity_Type_I` (obesidade I), `Obesity_Type_II` (obesidade II), `Obesity_Type_III` (obesidade III).
-    """)a
+    """)
