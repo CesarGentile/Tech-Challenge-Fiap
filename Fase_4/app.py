@@ -41,26 +41,26 @@ with tab1:
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        gender = st.selectbox("Gênero", ["Female", "Male"])
-        age = st.number_input("Idade", min_value=14, max_value=80, value=25)
+        gender = st.selectbox("Gênero", ["Feminino", "Masculino"])
+        age = st.number_input("Idade", min_value=1, max_value=100, value=25)
         height = st.number_input("Altura (m)", min_value=1.0, max_value=2.5, value=1.70, step=0.01)
         weight = st.number_input("Peso (kg)", min_value=30.0, max_value=250.0, value=70.0, step=0.1)
-        family_hist = st.selectbox("Histórico Familiar de Sobrepeso?", ["yes", "no"])
+        family_hist = st.selectbox("Histórico Familiar de Sobrepeso?", ["Sim", "Não"])
 
     with col2:
-        favc = st.selectbox("Consome alimentos calóricos (Fast Food)?", ["yes", "no"])
-        fcvc = st.slider("Frequência de vegetais nas refeições (1-3)", 1, 3, 2)
+        favc = st.selectbox("Consome alimentos calóricos (Fast Food)?", ["Sim", "Não"])
+        fcvc = st.slider("Frequência de vegetais nas refeições (1-4)", 1, 4, 2)
         ncp = st.slider("Refeições principais por dia", 1, 4, 3)
-        caec = st.selectbox("Come lanches entre as refeições?", ["no", "Sometimes", "Frequently", "Always"])
-        smoke = st.selectbox("Fumante?", ["yes", "no"])
+        caec = st.selectbox("Come lanches entre as refeições?", ["Não", "As vezes", "Frequentemente", "Sempre"])
+        smoke = st.selectbox("Fumante?", ["Sim", "Não"])
 
     with col3:
-        ch2o = st.slider("Consumo de água (L/dia)", 1, 3, 2)
-        scc = st.selectbox("Monitora calorias diárias?", ["yes", "no"])
-        faf = st.slider("Dias de atividade física na semana (0-3)", 0, 3, 1)
-        tue = st.slider("Horas de uso de eletrônicos/dia (0-2)", 0, 2, 1)
-        calc = st.selectbox("Consumo de álcool", ["no", "Sometimes", "Frequently", "Always"])
-        mtrans = st.selectbox("Meio de transporte principal", ["Public_Transportation", "Automobile", "Walking", "Motorbike", "Bike"])
+        ch2o = st.slider("Consumo de água (L/dia)", 1, 6, 2)
+        scc = st.selectbox("Monitora calorias diárias?", ["Sim", "Não"])
+        faf = st.slider("Dias de atividade física na semana (0-7)", 0, 7, 1)
+        tue = st.slider("Horas de uso de eletrônicos/dia (0-5)", 0, 5, 1)
+        calc = st.selectbox("Consumo de álcool", ["Não", "As vezes", "Frequentemente", "Sempre"])
+        mtrans = st.selectbox("Meio de transporte principal", ["Transporte Público", "Automóvel Próprio", "Caminhada", "Bicicleta"])
 
     if st.button("Realizar Diagnóstico", type="primary"):
         # Preparar dados para o modelo
