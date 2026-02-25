@@ -43,26 +43,26 @@ with tab1:
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        gender = st.selectbox("Gênero", ["Feminino", "Masculino"])
-        age = st.number_input("Idade", min_value=14, max_value=99, value=25)
+        gender = st.selectbox("Gênero", ["Female", "Male"])
+        age = st.number_input("Idade", min_value=14, max_value=80, value=25)
         height = st.number_input("Altura (m)", min_value=1.0, max_value=2.5, value=1.70, step=0.01)
         weight = st.number_input("Peso (kg)", min_value=30.0, max_value=250.0, value=70.0, step=0.1)
-        family_hist = st.selectbox("Histórico Familiar de Sobrepeso?", ["Sim", "Não"])
+        family_hist = st.selectbox("Histórico Familiar de Sobrepeso?", ["yes", "no"])
 
     with col2:
-        favc = st.selectbox("Consome alimentos calóricos (Fast Food)?", ["Sim", "Não"])
+        favc = st.selectbox("Consome alimentos calóricos (Fast Food)?", ["yes", "no"])
         fcvc = st.slider("Frequência de vegetais nas refeições (1-3)", 1, 3, 2)
         ncp = st.slider("Refeições principais por dia", 1, 4, 3)
-        caec = st.selectbox("Come lanches entre as refeições?", ["Não", "As vezes", "Frequentemente", "Sempre"])
-        smoke = st.selectbox("Fumante?", ["Sim", "Não"])
+        caec = st.selectbox("Come lanches entre as refeições?", ["no", "Sometimes", "Frequently", "Always"])
+        smoke = st.selectbox("Fumante?", ["yes", "no"])
 
     with col3:
         ch2o = st.slider("Consumo de água (L/dia)", 1, 3, 2)
-        scc = st.selectbox("Monitora calorias diárias?", ["Sim", "Não"])
+        scc = st.selectbox("Monitora calorias diárias?", ["yes", "no"])
         faf = st.slider("Dias de atividade física na semana (0-3)", 0, 3, 1)
         tue = st.slider("Horas de uso de eletrônicos/dia (0-2)", 0, 2, 1)
-        calc = st.selectbox("Consumo de álcool", ["Não", "As vezes", "Frequentemente", "Sempre"])
-        mtrans = st.selectbox("Meio de transporte principal", ["Transporte Público", "Carro", "Caminhada", "Moto", "Bicicleta"])
+        calc = st.selectbox("Consumo de álcool", ["no", "Sometimes", "Frequently", "Always"])
+        mtrans = st.selectbox("Meio de transporte principal", ["Public_Transportation", "Automobile", "Walking", "Motorbike", "Bike"])
 
     if st.button("Realizar Diagnóstico", type="primary"):
         # Preparar dados para o modelo
@@ -123,18 +123,16 @@ with tab3:
     st.markdown("Abaixo estão as descrições de todas as variáveis utilizadas neste sistema, conforme a base original do estudo:")
     
     st.markdown("""
-    * **FAVC** — (Frequent consumption of high-caloric food) Consumo frequente de alimentos muito calóricos.
-    * **FCVC** — (Frequency of consumption of vegetables) Frequência de consumo de vegetais nas refeições.
-    * **NCP** — (Number of main meals) Número de refeições principais por dia.
-    * **CAEC** — (Consumption of food between meals) Consumo de lanches/comes entre as refeições.
-    * **SMOKE** — (Smoking) Hábito de fumar.
-    * **CH2O** — (Daily water consumption) Consumo diário de água.
-    * **SCC** — (Calories consumption monitoring) Monitora a ingestão calórica diária.
-    * **FAF** — (Physical activity frequency) Frequência semanal de atividade física.
-    * **TUE** — (Time using electronic devices) Tempo diário usando dispositivos eletrônicos.
-    * **CALC** — (Alcohol consumption) Consumo de bebida alcoólica.
-    * **MTRANS** — (Transportation used / Mode of transport) Meio de transporte habitual.
-    * **Obesity** — (Target label / Nível de obesidade) Classe de peso corporal. Valores: Insufficient_Weight (abaixo do peso), Normal_Weight (peso normal),
-Overweight_Level_I (sobrepeso I), Overweight_Level_II (sobrepeso II), Obesity_Type_I (obesidade I), Obesity_Type_II (obesidade II),
-Obesity_Type_III (obesidade III).
+    * **FAVC** — (Frequent consumption of high-caloric food) Consumo frequente de alimentos muito calóricos. Valores: `yes` (sim), `no` (não).
+    * **FCVC** — (Frequency of consumption of vegetables) Frequência de consumo de vegetais nas refeições. Valores (escala 1–3): 1 raramente, 2 às vezes, 3 sempre. Nota: no arquivo os valores aparecem com decimais (ruído); interprete arredondando para o inteiro mais próximo.
+    * **NCP** — (Number of main meals) Número de refeições principais por dia. Valores (escala 1–4): 1 uma refeição, 2 duas, 3 três, 4 quatro ou mais. Nota: valores com decimais devem ser arredondados.
+    * **CAEC** — (Consumption of food between meals) Consumo de lanches/comes entre as refeições. Valores: `no` (não consome), `Sometimes` (às vezes), `Frequently` (frequentemente), `Always` (sempre).
+    * **SMOKE** — (Smoking) Hábito de fumar. Valores: `yes` (fuma), `no` (não fuma).
+    * **CH2O** — (Daily water consumption) Consumo diário de água. Valores (escala 1–3): 1 < 1 L/dia, 2 1–2 L/dia, 3 > 2 L/dia. Nota: arredonde valores decimais para interpretar a categoria.
+    * **SCC** — (Calories consumption monitoring) Monitora a ingestão calórica diária. Valores: `yes` (sim), `no` (não).
+    * **FAF** — (Physical activity frequency) Frequência semanal de atividade física. Valores (escala 0–3): 0 nenhuma, 1 ~1–2×/sem, 2 ~3–4×/sem, 3 5×/sem ou mais. Nota: arredonde valores decimais.
+    * **TUE** — (Time using electronic devices) Tempo diário usando dispositivos eletrônicos. Valores (escala 0–2): 0 ~0–2 h/dia, 1 ~3–5 h/dia, 2 > 5 h/dia. Nota: arredonde valores decimais.
+    * **CALC** — (Alcohol consumption) Consumo de bebida alcoólica. Valores: `no` (não bebe), `Sometimes` (às vezes), `Frequently` (frequentemente), `Always` (sempre).
+    * **MTRANS** — (Transportation used / Mode of transport) Meio de transporte habitual. Valores: `Automobile` (carro), `Motorbike` (moto), `Bike` (bicicleta), `Public_Transportation` (transporte público), `Walking` (a pé).
+    * **Obesity** — (Target label / Nível de obesidade) Classe de peso corporal. Valores: `Insufficient_Weight` (abaixo do peso), `Normal_Weight` (peso normal), `Overweight_Level_I` (sobrepeso I), `Overweight_Level_II` (sobrepeso II), `Obesity_Type_I` (obesidade I), `Obesity_Type_II` (obesidade II), `Obesity_Type_III` (obesidade III).
     """)
