@@ -124,10 +124,15 @@ st.markdown("""
     }
     div[data-baseweb="select"] > div > div,
     div[data-baseweb="select"] button,
-    div[data-baseweb="select"] span {
+    div[data-baseweb="select"] span,
+    div[data-testid="stFileUploader"] {
         background-color: #f2f2f2 !important;
         color: #000000 !important;
         border: 1px solid #d0d0d0 !important;
+        border-radius: 10px !important;
+    }
+    div[data-testid="stFileUploader"] * {
+        color: #000000 !important;
     }
     div[data-baseweb="select"] div[role="button"] {
         color: #000000 !important;
@@ -203,7 +208,7 @@ st.sidebar.image(
 st.sidebar.markdown("## ⚙️ Modo de uso")
 modo = st.sidebar.radio(
     "Selecione:",
-    ["🧑 Avaliação Individual", "📂 Lote (CSV/Excel)", "📊 Painel Histórico"],
+    ["🧑 Avaliação Individual", "📂 Lote (CSV/Excel)", "📊 Painel Histórico", "📘 Dicionário de Campos"],
     index=0
 )
 
@@ -478,6 +483,44 @@ elif modo == "📂 Lote (CSV/Excel)":
                                    mime="text/csv", use_container_width=True)
         except Exception as e:
             st.error(f"Erro ao processar o arquivo: {e}")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  MODO 3 — DICIONÁRIO DE CAMPOS
+# ══════════════════════════════════════════════════════════════════════════════
+elif modo == "📘 Dicionário de Campos":
+    st.subheader("📘 Dicionário de Campos")
+    st.markdown(
+        "Este dicionário descreve todos os campos usados pelo app em avaliações individuais, cargas em lote e no painel histórico."
+    )
+    st.markdown("---")
+    campos = [
+        ("fase", "Fase atual do aluno no programa. 0 = ALFA, 1–8 = fases do curso."),
+        ("genero", "Gênero do aluno — usado para análises e filtros de painel histórico."),
+        ("genero_feminino", "Indicador 1/0 para gênero feminino, usado pelo modelo em lote e individual."),
+        ("anos_no_programa", "Quantidade de anos que o aluno está no programa."),
+        ("instituicao", "Tipo de escola / formação do aluno."),
+        ("instituicao_cod", "Código numérico do tipo de instituição usado pelo modelo."),
+        ("pedra_ano", "Pedra atual do aluno no ano da avaliação. Valores: 1,2,3,4 ou -1 para sem pedra."),
+        ("pedra_2020", "Pedra do aluno em 2020. Valores: 1,2,3,4 ou -1 para não informado."),
+        ("pedra_2021", "Pedra do aluno em 2021. Valores: 1,2,3,4 ou -1 para não informado."),
+        ("iaa", "Autoavaliação psicossocial do aluno (0 a 10)."),
+        ("ieg", "Engajamento geral do aluno (0 a 10)."),
+        ("ips", "Índice psicossocial (0 a 10)."),
+        ("ida", "Desempenho acadêmico e comportamento (0 a 10)."),
+        ("ipv", "Ponto de virada psicológico do aluno (0 a 10)."),
+        ("nota_matematica", "Nota de matemática do aluno (0 a 10)."),
+        ("nota_portugues", "Nota de português do aluno (0 a 10)."),
+        ("nota_ingles", "Nota de inglês do aluno (0 a 10)."),
+        ("media_notas", "Média das notas de matemática, português e inglês."),
+        ("media_indicadores", "Média dos indicadores psicossociais IAA, IEG e IPS."),
+        ("prob_risco", "Probabilidade estimada de risco de defasagem gerada pelo modelo ou heurística."),
+        ("nivel_risco", "Classificação final do risco: Baixo Risco, Risco Moderado ou Alto Risco."),
+        ("inde_ano", "Índice de desempenho educacional anual, presente na base histórica."),
+        ("ian", "Indicador de adequação ao nível do aluno, presente na base histórica."),
+    ]
+    df_campos = pd.DataFrame(campos, columns=["Campo", "Descrição"])
+    st.table(df_campos)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
