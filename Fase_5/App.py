@@ -201,14 +201,10 @@ with col_title:
 st.markdown("---")
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
-st.sidebar.image(
-    "https://passosmagicos.org.br/wp-content/uploads/2020/07/Passos-magicos-icon-cor.png",
-    width=120
-)
 st.sidebar.markdown("## ⚙️ Modo de uso")
 modo = st.sidebar.radio(
     "Selecione:",
-    ["🧑 Avaliação Individual", "📂 Lote (CSV/Excel)", "📊 Painel Histórico", "📘 Dicionário de Campos"],
+    ["📊 Painel Histórico", "🧑 Avaliação Individual", "📂 Lote (CSV/Excel)", "📘 Dicionário de Campos"],
     index=0
 )
 
@@ -357,30 +353,33 @@ if modo == "🧑 Avaliação Individual":
             axes[0].spines[spine].set_color('#aaaaaa')
 
         # Gauge
+        from matplotlib.patches import Wedge, Circle
+
         axes[1].set_facecolor('white')
-        theta = np.linspace(0, np.pi, 300)
-        for start, end, cor in [
-            (0,         np.pi/3,   CORES['verde']),
-            (np.pi/3,   2*np.pi/3, CORES['amarelo']),
-            (2*np.pi/3, np.pi,     CORES['destaque'])
+        for start_deg, end_deg, cor in [
+            (0,   60,  CORES['verde']),
+            (60, 120, CORES['amarelo']),
+            (120,180, CORES['destaque'])
         ]:
-            mask = (theta >= start) & (theta <= end)
-            axes[1].fill_between(
-                np.cos(theta[mask]), np.sin(theta[mask]),
-                0.65*np.cos(theta[mask]), 0.65*np.sin(theta[mask]),
-                color=cor, alpha=0.85
-            )
+            wedge = Wedge((0, 0), 1.0, start_deg, end_deg,
+                          width=0.35, facecolor=cor, edgecolor='white', linewidth=1.5, alpha=0.9)
+            axes[1].add_patch(wedge)
+
+        axes[1].add_patch(Circle((0, 0), 0.35, facecolor='white', edgecolor='none'))
+
         angle = np.pi * (1 - prob)
-        axes[1].annotate('', xy=(0.78*np.cos(angle), 0.78*np.sin(angle)), xytext=(0,0),
+        axes[1].annotate('', xy=(0.78*np.cos(angle), 0.78*np.sin(angle)), xytext=(0, 0),
                           arrowprops=dict(arrowstyle='->', color='#1a1a2e', lw=2.5))
-        axes[1].set_xlim(-1.3, 1.3); axes[1].set_ylim(-0.15, 1.3)
+        axes[1].set_xlim(-1.1, 1.1)
+        axes[1].set_ylim(-0.2, 1.1)
+        axes[1].set_aspect('equal', adjustable='box')
         axes[1].axis('off')
         axes[1].text(0, -0.08, f'{prob*100:.1f}%', ha='center', va='center',
                      fontsize=22, fontweight='bold', color=CORES['primaria'])
         axes[1].set_title('Probabilidade de Risco', fontweight='bold', color='#1a1a2e', pad=10)
-        axes[1].text(-1.1,  0.02, 'Baixo',    fontsize=10, color=CORES['verde'],   fontweight='bold')
-        axes[1].text(-0.18, 1.08, 'Moderado', fontsize=10, color='#b07d00',        fontweight='bold', ha='center')
-        axes[1].text( 0.82, 0.02, 'Alto',     fontsize=10, color=CORES['destaque'],fontweight='bold')
+        axes[1].text(-1.05, 0.02, 'Baixo',    fontsize=10, color=CORES['verde'],   fontweight='bold')
+        axes[1].text(-0.18, 1.05, 'Moderado', fontsize=10, color='#b07d00',        fontweight='bold', ha='center')
+        axes[1].text(0.82, 0.02, 'Alto',     fontsize=10, color=CORES['destaque'], fontweight='bold')
 
         plt.tight_layout()
         st.pyplot(fig)
