@@ -112,6 +112,29 @@ st.markdown("""
     div[role="alert"] * {
         color: #000000 !important;
     }
+
+    /* Botões e controles de seleção */
+    .stButton>button,
+    div[data-testid="stForm"] button,
+    div[data-testid="stFileUploader"] button {
+        background-color: #f2f2f2 !important;
+        color: #000000 !important;
+        border: 1px solid #d0d0d0 !important;
+        border-radius: 8px !important;
+    }
+    div[data-baseweb="select"] > div > div,
+    div[data-baseweb="select"] button,
+    div[data-baseweb="select"] span {
+        background-color: #f2f2f2 !important;
+        color: #000000 !important;
+        border: 1px solid #d0d0d0 !important;
+    }
+    div[data-baseweb="select"] div[role="button"] {
+        color: #000000 !important;
+    }
+    div[data-baseweb="select"] svg {
+        fill: #000000 !important;
+    }
     .kpi-label {
         color: #155088 !important;
         font-size: 13px !important;
