@@ -197,7 +197,7 @@ with col_logo:
     st.markdown("## 🎓")
 with col_title:
     st.markdown("# Passos Mágicos — Preditor de Risco de Defasagem")
-    st.markdown("**POSTECH · FIAP · Datathon 2024–2025**")
+    st.markdown("**POSTECH · FIAP · Datathon 2026**")
 st.markdown("---")
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -650,7 +650,7 @@ elif modo == "📊 Painel Histórico":
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown("---")
 st.markdown(
-    "<center style='color:#555555;'><small>Passos Mágicos · POSTECH FIAP · Datathon 2024–2025 · "
+    "<center style='color:#555555;'><small>Passos Mágicos · POSTECH FIAP · Datathon 2026 · "
     "Desenvolvido com ❤️ para apoiar a educação</small></center>",
     unsafe_allow_html=True
 )
