@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import joblib
 import os
 
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
 # ── Configuração da página ────────────────────────────────────────────────────
 st.set_page_config(
     page_title="Passos Mágicos — Risco de Defasagem",
@@ -95,6 +97,21 @@ st.markdown("""
         padding: 16px 20px !important;
         margin-bottom: 8px !important;
     }
+
+    /* Avisos e caixas de mensagem */
+    div[data-testid="stAlert"],
+    div[data-testid="stMessage"],
+    div[role="alert"] {
+        background-color: #f2f2f2 !important;
+        color: #000000 !important;
+        border: 1px solid #d0d0d0 !important;
+        border-radius: 12px !important;
+    }
+    div[data-testid="stAlert"] *,
+    div[data-testid="stMessage"] *,
+    div[role="alert"] * {
+        color: #000000 !important;
+    }
     .kpi-label {
         color: #155088 !important;
         font-size: 13px !important;
@@ -115,9 +132,11 @@ st.markdown("""
 # ── Carregar modelo ───────────────────────────────────────────────────────────
 @st.cache_resource
 def carregar_modelo():
-    if os.path.exists("modelo_risco_defasagem.pkl") and os.path.exists("features_modelo.pkl"):
-        modelo   = joblib.load("modelo_risco_defasagem.pkl")
-        features = joblib.load("features_modelo.pkl")
+    model_path = os.path.join(BASE_DIR, "modelo_risco_defasagem.pkl")
+    features_path = os.path.join(BASE_DIR, "features_modelo.pkl")
+    if os.path.exists(model_path) and os.path.exists(features_path):
+        modelo   = joblib.load(model_path)
+        features = joblib.load(features_path)
         return modelo, features
     return None, None
 
@@ -126,8 +145,9 @@ modelo, FEATURES = carregar_modelo()
 # ── Carregar base histórica ───────────────────────────────────────────────────
 @st.cache_data
 def carregar_base():
-    if os.path.exists("base_tratada_final.parquet"):
-        return pd.read_parquet("base_tratada_final.parquet")
+    parquet_path = os.path.join(BASE_DIR, "base_tratada_final.parquet")
+    if os.path.exists(parquet_path):
+        return pd.read_parquet(parquet_path)
     return None
 
 df_hist = carregar_base()
